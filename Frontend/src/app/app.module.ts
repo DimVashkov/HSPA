@@ -10,6 +10,7 @@ import { PropertyCardComponent } from './property/property-card/property-card.co
 import { PropertyListComponent } from './property/property-list/property-list.component';
 import { HousingService } from './services/housing.service';
 import { AddPropertyComponent } from './property/add-property/add-property.component';
+import { PropertyDetailComponent } from './property/property-detail/property-detail.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AddPropertyComponent } from './property/add-property/add-property.compo
     NavBarComponent,
     PropertyCardComponent,
     PropertyListComponent,
-    AddPropertyComponent
+    AddPropertyComponent,
+    PropertyDetailComponent
   ],
   imports: [
     BrowserModule,
