@@ -1,54 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { HousingService } from 'src/app/services/housing.service';
+import { IProperty } from '../IProperty.interface';
 
 @Component({
   selector: 'app-property-list',
   templateUrl: './property-list.component.html',
   styleUrls: ['./property-list.component.scss']
 })
-export class PropertyListComponent implements OnInit {
+export class PropertyListComponent implements OnInit, OnDestroy {
 
-  Properties: Array<any> = [
-    {
-      "Id" : 1,
-      "Name": "House1",
-      "Type": "House",
-      "Price": 12000,
-    },
-    {
-      "Id" : 2,
-      "Name": "Erose Villa",
-      "Type": "House",
-      "Price": 14000,
-    },
-    {
-      "Id" : 3,
-      "Name": "Bedroom Flat",
-      "Type": "Flat",
-      "Price": 10000,
-    },
-    {
-      "Id" : 4,
-      "Name": "Whatever Estate",
-      "Type": "House",
-      "Price": 16000,
-    },
-    {
-      "Id" : 5,
-      "Name": "Big house",
-      "Type": "House",
-      "Price": 20000,
-    },
-    {
-      "Id" : 6,
-      "Name": "Pearl White House",
-      "Type": "House",
-      "Price": 18000,
-    },
-  ]
+  properties: Array<IProperty>;
+  propertiesSub: Subscription
 
-  constructor() { }
+  constructor(private housingService: HousingService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+
+    this.propertiesSub = this.housingService.getAllProperties().subscribe(
+      data => {
+        this.properties = data;
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    if (this.propertiesSub) {
+      this.propertiesSub.unsubscribe();
+    }
   }
 
 }
